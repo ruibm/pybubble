@@ -1,0 +1,12 @@
+Ball:
+	radius=15
+	rectangle=[30, 30]
+
+Playground:
+	origin=[200,60]
+	maxballs=[8, 11]
+	rectangle=[240, 350]
+
+BallThrowPosition = [316, 366]
+
+
