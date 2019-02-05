@@ -1,3 +1,4 @@
+import os
 import time
 import sys
 import pygame
@@ -5,6 +6,7 @@ import pygame.constants as constants
 
 import modules.conf as conf
 import modules.modes.game as game
+
 
 class Core (object) :
 	def __init__(self) :
@@ -27,7 +29,7 @@ class Core (object) :
 			pygame.display.flip()
 
 			curTime = pygame.time.get_ticks()
-			timeDiff = curTime - initTime 
+			timeDiff = curTime - initTime
 			if timeDiff <  timePerFrame:
 				delay = timePerFrame - timeDiff
 				realDelay = pygame.time.wait(delay)
@@ -36,10 +38,10 @@ class Core (object) :
 
 	def processUserInput(self) :
 		for event in pygame.event.get():
-				if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == constants.K_ESCAPE) : 
+				if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == constants.K_ESCAPE) :
 					currentTime = pygame.time.get_ticks()
 					fps = self.count * 1000.0 / (currentTime - self.initTime)
-					print "Framerate: ", fps, "fps"
+					print("Framerate: ", fps, "fps")
 					sys.exit()
 				else :
 					self.mode.processEvent(event)

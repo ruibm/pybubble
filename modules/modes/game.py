@@ -25,11 +25,11 @@ class Game(mode.Mode) :
 	def update(self) :
 		curTime = pygame.time.get_ticks()
 		numberOfFrames = int((curTime - self.lastAnimTimeMSecs) / self.timePerUpdateMSecs)
-		if numberOfFrames < 1 : 
+		if numberOfFrames < 1 :
 			return
 		self.lastAnimTimeMSecs = curTime
 
-		for a in xrange(numberOfFrames):
+		for a in range(numberOfFrames):
 			self.runActions()
 			self.board.updateAnimation()
 
@@ -98,7 +98,7 @@ class Board(object) :
 
 	def getLooseBalls(self) :
 		visitedBallsMatrix = [[False for i in range(conf.settings['maxBalls'][1])] for i in range(conf.settings['maxBalls'][0]+2)]
-		for j in xrange(conf.settings['maxBalls'][1]) :
+		for j in range(conf.settings['maxBalls'][1]) :
 			ball = self.ballMatrix[0][j]
 			if ball :
 				self.visitBallMatrix(visitedBallsMatrix, [0, j])
@@ -112,7 +112,7 @@ class Board(object) :
 		return looseBalls
 
 	def visitBallMatrix(self, visitedBallMatrix, pos) :
-		for i in xrange(2) :
+		for i in range(2) :
 			if pos[i] < 0 or pos[i] >= conf.settings['maxBalls'][i] :
 				return
 
@@ -120,17 +120,17 @@ class Board(object) :
 		pj = int(pos[1])
 		ball = self.ballMatrix[pi][pj]
 		if not ball or visitedBallMatrix[pi][pj]:
-			return 
+			return
 
 		visitedBallMatrix[pi][pj] = True
 		if (self.isTop8BallLine and pi % 2 == 0) or (not self.isTop8BallLine and pi % 2 == 1) :
-			for i in xrange(-1, 2) :
-				for j in xrange(-1, 2) :
+			for i in range(-1, 2) :
+				for j in range(-1, 2) :
 					if (i,j) != (0,0) and (i,j) != (-1,-1) and (i,j) != (+1, -1):
 						self.visitBallMatrix(visitedBallMatrix, [pi+i, pj+j])
 		else :
-			for i in xrange(-1, 2) :
-				for j in xrange(-1, 2) :
+			for i in range(-1, 2) :
+				for j in range(-1, 2) :
 					if (i,j) != (0,0) and (i,j) != (-1,+1) and (i,j) != (+1, +1):
 						self.visitBallMatrix(visitedBallMatrix, [pi+i, pj+j])
 
@@ -145,7 +145,7 @@ class Board(object) :
 				pass
 
 	def getBallsWithSameColor(self, color, pos, ballsFound=[]) :
-		for i in xrange(2) :
+		for i in range(2) :
 			if pos[i] < 0 or pos[i] >= conf.settings['maxBalls'][i] :
 				return []
 
@@ -157,13 +157,13 @@ class Board(object) :
 
 		ballsFound.append(ball)
 		if (self.isTop8BallLine and pi % 2 == 0) or (not self.isTop8BallLine and pi % 2 == 1) :
-			for i in xrange(-1, 2) :
-				for j in xrange(-1, 2) :
+			for i in range(-1, 2) :
+				for j in range(-1, 2) :
 					if (i,j) != (0,0) and (i,j) != (-1,-1) and (i,j) != (+1, -1):
 						self.getBallsWithSameColor(color, [pi+i, pj+j], ballsFound)
 		else :
-			for i in xrange(-1, 2) :
-				for j in xrange(-1, 2) :
+			for i in range(-1, 2) :
+				for j in range(-1, 2) :
 					if (i,j) != (0,0) and (i,j) != (-1,+1) and (i,j) != (+1, +1):
 						self.getBallsWithSameColor(color, [pi+i, pj+j], ballsFound)
 
@@ -197,7 +197,7 @@ class Board(object) :
 					self.throwAngle = 0
 					ball = None
 					break
-			
+
 			if ball and ball.pos[1] <= self.pos[1] :
 				ball.roundPosToBoardTop(self.pos, self.isTop8BallLine)
 				self.thrownBall = None
@@ -250,7 +250,7 @@ class Ball(object) :
 		self.boardPos = [-1, -1]
 
 	def setCenterPos(self, pos) :
-		for a in xrange(2) :
+		for a in range(2) :
 			self.pos[a] = pos[a] - self.radius
 
 	def centerDistance(self, ball) :
@@ -288,7 +288,7 @@ class Ball(object) :
 		self.pos[1] = int(i * math.sin(math.pi/3.0) * self.radius * 2.0)
 
 		self.pos[0] = offsetPos[0] + self.pos[0]
-		self.pos[1] = offsetPos[1] + self.pos[1]		
+		self.pos[1] = offsetPos[1] + self.pos[1]
 
 	def getPosInBoard(self, offsetPos = (0, 0), isTop8BallLine = True) :
 		x = self.pos[0] - offsetPos[0]
@@ -302,7 +302,7 @@ class Ball(object) :
 		j = math.floor(0.5 + (x - compensation)  / (self.radius * 2.0))
 
 		return [int(i),int(j)]
-		
+
 
 ################################################################################
 ################################################################################
@@ -343,7 +343,7 @@ class Animation(object) :
 
 	def render(self, screen) :
 		pass
-	
+
 	def update(self) :
 		pass
 
